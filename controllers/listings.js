@@ -30,13 +30,30 @@ router.post('/', async (req, res) => {
 
 router.get('/:listingId', async (req, res) => {
   try {
-    const populatedListings = await Listing.findById(
-      req.params.listingId
-    ).populate('owner');
+    const populatedListings = await Listing.findById(req.params.listingId).populate('owner');
 
     res.render('listings/show.ejs', {
       listing: populatedListings,
     });
+  } catch (error) {
+    console.log(error);
+    res.redirect('/');
+  }
+});
+
+router.delete('/:listingId', async (req, res) => {
+  try{
+    const deleteListing = await Listing.findById(req.params.listingId);
+    
+    if (deleteListing.owner.equals(req.session.user._id)) { // only owner can delete its listing
+      
+      await deleteListing.deleteOne();
+      res.redirect('/listings');
+
+    } else {
+      res.send("You don't have permission to do that.");
+    }
+  
   } catch (error) {
     console.log(error);
     res.redirect('/');

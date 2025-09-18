@@ -21,7 +21,10 @@
     <% } else { %>
       <p>You don't own this, <%= listing.owner.username %> does!</p>
     <% } %>
-  </body>
 
+    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+      <button type="submit">Delete this listing</button>
+    </form>
+  
   </body>
 </html>
