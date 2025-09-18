@@ -24,7 +24,15 @@ const listingSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-  }, 
+  },
+
+  favoritedByUsers: [ // number of users liked the listing array (refrence)
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ], 
+
 });
 
 const Listing = mongoose.model('Listing', listingSchema);
