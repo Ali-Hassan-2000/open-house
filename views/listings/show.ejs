@@ -18,14 +18,15 @@
     <h2>Owner</h2>
     <% if (listing.owner._id.equals(user._id)) { %>
       <p>You own this!</p>
+          
+      <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete this listing</button>
+      </form>
+      
       <a href="/listings/<%= listing._id %>/edit">Edit this listing</a>
     <% } else { %>
       <p>You don't own this, <%= listing.owner.username %> does!</p>
     <% } %>
-
-    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-      <button type="submit">Delete this listing</button>
-    </form>
   
     <h2>Favorites</h2>
     <p>Favorited by <%= listing.favoritedByUsers.length %> people.</p>

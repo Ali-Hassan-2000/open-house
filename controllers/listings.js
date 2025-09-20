@@ -33,9 +33,7 @@ router.get('/:listingId', async (req, res) => {
     const populatedListings = await Listing.findById(req.params.listingId).populate('owner');
 
     // let the user like only one time
-    const userHasFavorited = populatedListings.favoritedByUsers.some((user) =>
-      user.equals(req.session.user._id)
-    );
+    const userHasFavorited = populatedListings.favoritedByUsers.some((user) => user.equals(req.session.user._id));
 
     res.render('listings/show.ejs', {
       listing: populatedListings,
